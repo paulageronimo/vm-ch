@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
@@ -52,7 +53,7 @@ func main() {
 	todos = append(todos, Todo{ID: GetNextId(), Value: "CodeHouse", DueDate: "7/31/2022"})
 
 	r := gin.Default()
-
+	r.Use(static.Serve("/", static.LocalFile("./todo-vue/dist", false)))
 	r.GET("/api/todos", GetTodos)
 	r.POST("/api/todos", PostTodo)
 	r.DELETE("/api/todos/:id", DeleteTodo)
